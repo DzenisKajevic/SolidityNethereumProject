@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\dzeni\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\dzeni\\.nuget\\packages"
+    ]
+  }
+}

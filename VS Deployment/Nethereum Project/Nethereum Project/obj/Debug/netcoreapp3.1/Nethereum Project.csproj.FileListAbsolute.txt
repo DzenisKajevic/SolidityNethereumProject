@@ -1,0 +1,38 @@
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\obj\Debug\netcoreapp3.1\Nethereum Project.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\obj\Debug\netcoreapp3.1\Nethereum Project.AssemblyInfoInputs.cache
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\obj\Debug\netcoreapp3.1\Nethereum Project.AssemblyInfo.cs
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\obj\Debug\netcoreapp3.1\Nethereum Project.csproj.CoreCompileInputs.cache
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum Project.exe
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum Project.deps.json
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum Project.runtimeconfig.json
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum Project.runtimeconfig.dev.json
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum Project.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum Project.pdb
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\NBitcoin.Secp256k1.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.ABI.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Accounts.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.BlockchainProcessing.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Contracts.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Geth.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Hex.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.JsonRpc.Client.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.JsonRpc.RpcClient.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.KeyStore.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Model.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.RLP.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.RPC.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Signer.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Signer.EIP712.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Util.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Nethereum.Web3.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\xunit.abstractions.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\xunit.assert.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\xunit.core.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\bin\Debug\netcoreapp3.1\xunit.execution.dotnet.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\obj\Debug\netcoreapp3.1\Nethereum Project.csproj.CopyComplete
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\obj\Debug\netcoreapp3.1\Nethereum Project.dll
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\obj\Debug\netcoreapp3.1\Nethereum Project.pdb
+C:\Users\dzeni\Desktop\Skola\Year 3\1. sem\Blockchain Fundamentals\Nethereum tutorial\VS Deployment\Nethereum Project\Nethereum Project\obj\Debug\netcoreapp3.1\Nethereum Project.genruntimeconfig.cache
