@@ -14,14 +14,22 @@ contract test {
     }
 
     // SendTransactionAsync()
-    function multiplyWithEvent(int256 val) public payable returns (int256 result) {
+    function multiplyWithEvent(int256 val)
+        public
+        payable
+        returns (int256 result)
+    {
         result = val * _multiplier;
         emit multiplied(val, msg.sender, result);
         return result;
     }
 
     // CallAsync()
-    function multiplyWithoutEvent(int256 val) public view returns (int256 result) {
+    function multiplyWithoutEvent(int256 val)
+        public
+        view
+        returns (int256 result)
+    {
         result = val * _multiplier;
         return result;
     }
