@@ -41,6 +41,11 @@ mergeInto(LibraryManager.library, {
                 console.log("TxHash: " + txHash);
                 console.log("My GameObject: " + gameObject);
                 console.log("My Function: " + callback);
+                // similar to the Unity sendMessage function, but here we pass in the GameObject, the function on a script
+                // that is on that GameObject, as well as the data associated with that
+
+                // the GameObject and Function name had to be hard-coded since they would get lost in Unity due to WebGL not being able 
+                // to handle async actions properly
                 unityInstance.SendMessage("Ethereum", "TransactionCallback", txHash);
             });
 
