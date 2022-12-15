@@ -1,0 +1,44 @@
+ERC1155 (multi-token standard) breakdown:
+// support for ERC20 (Regular fungible tokens) & ERC721 (NFTs)
+
+// maps token ID to list of addresses of each person that holds it, and extracts the balance from each of those addresses
+ - mapping(uint256 => mapping(address => uint256)) private _balances;
+// balaceOf(account, tokenID) => returns how many specific tokens a single account / address has
+
+// batch functions in ERC1155 -> allows us to put in multiple transactions and save on transaction fees (ERC 20 & 721 don't have this)
+
+// ERC1155 preset ERC1155PresetMinterPauser.sol -> provides more production-level quality and augmentation to the regular 1155
+// allows us to have different roles associated with the contract -> good for multi-dev teams (giving / revoking privileges)
+// once a contract is deployed, it can't be changed, unless we build in that functionality and make those changes possible
+
+// in this example, idmap and lookupmap are used for converting between img IDs and NFT IDs
+// idmap => imgID to NFT ID
+// lookupmap => NFT ID to imgID
+
+// initialSupply = 1 for NFTs, if we make it more than 1, they become FTs 
+
+// whoever wants to add an NFT needs to have the MINTER_ROLE (can be used as a way to centralize NFT uploads, 
+// but how would I distribute the NFTs in that case ???)
+
+// require(idmap[imgID] == 0) checks if that image was already uploaded (if an NFT of it already exists)
+
+// mint the NFT for the person who initiated the contract call to addImgID()
+_mint(msg.sender, imgIDCounter, initialSupply, "");
+
+
+// Represents the "metadata" for the specific contract that's typically going to be stored off-chain
+ - function uri(uint256)... 
+// given the ID for a smart contract token, we output a URL that represents where you can get metadata associated with it
+// YT exposed API endpoint @ img.youtube.com/vi can be used to search for thumbnails associated with a specific video
+// full url = base_url + lookupmap[id] + "/hqdefault.jpg") // lookumpap[id] gives the ID of the img / vid
+// typically in this case we should specify .JSON for the file instead of .jpg for OpenSea, but we don't need that atm
+// since we have control over the contract
+
+// the following function is not built-in, but it's useful.
+// getAllTokens(address account)
+// for a specific address, we should have a list of all the tokens associated with that account
+// we have a counter that adds IDs, allows us to keep track of all the tokens that were added
+// it can be checked with a READ function
+
+// loop through and check, for a given address, how many tokens are held by that address (needed for returning a fixed-length array)
+// create a return array, go through the same loop again, but this time add each owned token to the array 

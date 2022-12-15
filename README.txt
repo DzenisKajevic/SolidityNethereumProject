@@ -2,12 +2,13 @@ Working with multiple external repositories (inefficient to keep all progress on
 
 - Researching the process of calling JS functions from Unity with C# (.dll, .jslib) for use with WebGL.
 - Using and editing the Unity, Solidity & Nethereum logic from 
- * FusedVR: https://github.com/FusedVR
+ * FusedVR (Vasanth Mohan): https://github.com/FusedVR
  * Juan Blanco: https://github.com/juanfranblanco
  * Bethany Ouseke: https://github.com/bethanyuo
 
 
  Notes:
+ - (might be useful) Unity Streaming (testing) with Blockchain samples: https://youtu.be/yRuqdHdDqFg
  - To make read-only requests, use QueryUnityRequest:
   var queryRequest = new QueryUnityRequest<FunctionName, FunctionOutputDTO>(parameter1, parameter2, ...);
   yield return queryRequest.Query(new FunctionName(){ Parameter1 = parameter1 }, contractAddress);
@@ -31,3 +32,4 @@ Working with multiple external repositories (inefficient to keep all progress on
 - To reload scenes:
  SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
  // similar to change scenes
+
