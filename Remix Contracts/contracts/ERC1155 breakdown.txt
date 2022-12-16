@@ -1,3 +1,6 @@
+deployed address: https://goerli.etherscan.io/address/0xe7e9398ade57f77c2ed977af1432465c93dbc520
+// had to be flattened in RemixIDE, otherwise the imports wouldn't work (for verifying the contract on Etherscan)
+
 ERC1155 (multi-token standard) breakdown:
 // support for ERC20 (Regular fungible tokens) & ERC721 (NFTs)
 
