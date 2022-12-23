@@ -51,3 +51,44 @@ knowledge or impossible.
 - The only viable option for buying and importing textures using the blockchain is for static objects / backgrounds...
 - Could be a good option for card games or something similar, where the characters aren't intended to move at all,
 but definitely not for the game I'm going for.
+
+(23.12.) 
+- It might actually still be possible to do what I initially wanted.
+- If I can figure out how to save whole Player presets with animations as an AssetBundle and then mint that AssetBundle 
+as an ERC-1155 token, I could be able to completely swap out a playable character upon selection.
+
+- How to go about doing it?
+- How to create an AssetBundle?
+- How to mint one?
+- Do I need to use the Animator programmatically to change the animations which are bound to each state?
+
+
+Example of an ERC-1155 smart contract for minting Bundles (similar to the previous one; 
+I'll probably continue using the first one):
+pragma solidity ^0.5.0;
+
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC1155/ERC1155.sol";
+
+contract AssetBundleToken is ERC1155 {
+
+  constructor(string memory _name, string memory _symbol, uint256 _totalSupply) public {
+    _name = "Asset Bundle Token";
+    _symbol = "ABT";
+    _totalSupply = 1;
+  }
+
+  function mintAssetBundle(string memory _assetBundleName, uint256 _amount) public returns (uint256) {
+    return _mint(_assetBundleName, _amount);
+  }
+}
+
+Theoretical steps on how to import an AssetBundle with a playable character inside of it, then replace the already-active
+playable character with the new one:
+
+1. Load the AssetBundle using the AssetBundle API.
+2. Instantiate the new playable character prefab from the AssetBundle.
+3. Use the Animation component to load the new character's animation clips.
+4. Use the Animator component to define transitions between the new character's animation states.
+5. Set the new character as the active character in the game.
+6. Use the Play() and CrossFade() methods of the Animation component to start playing the new character's animations.
+
