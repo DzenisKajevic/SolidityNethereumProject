@@ -92,3 +92,17 @@ playable character with the new one:
 5. Set the new character as the active character in the game.
 6. Use the Play() and CrossFade() methods of the Animation component to start playing the new character's animations.
 
+_______________
+
+Added Asset Bundle Browser Unity extension.
+
+Managed to somehow enable loading of characters with their animations from a server (localhost) using UnityWebRequest.
+
+- Next I need to edit the animator so that the characters only animate their movements upon jumping
+- Then I need to enable a next / previous asset bundle script that would load the rest from the server upon clicking
+ (or maybe I could download all the asset bundles upon initial load, and just swap between them for a more responsive experience)
+- Finally, edit the already existing ERC-1155 contract to:
+ + mint the asset bundles to the blockchain using the main contractAddress
+ + set the price for purchasing asset bundles and implement functions for how that would work
+ + fetch the asset bundles that an address holds
+ + optionally implement trading of said asset bundles between addresses
