@@ -92,9 +92,16 @@ Managed to somehow enable loading of characters with their animations from a ser
  + Added a new gameplay scene, added obstacles, backgrounds, custom 2D colliders
  + Added another prefab set for the GameObjects that will be used in the skin selection scene (no movement, different idle animation)
 
+- Finished (26.12; 22:26)
+ + Added a spawner Object + Script for spawning obstacles
+ + Added horizontal (obstacle) and vertical (player) movement
+ + (Accidentally :)) created a local-coop game, where each player controls a different bird
+// local coop - player collision disabled in Edit -> Project Settings -> Physics 2D
+  * I COOOOOULD *MAYBE* ??? Create a coop NFT game where each of the 3 players would have to sign in, and choose a skin from their
+  own wallet. MAYBE. Probably not.
+_____________________
+
 - Next I need to:
- + Add a spawner Object + Script for spawning obstacles
- + Add horizontal (obstacle) and vertical (player) movement
  + Add a GameControler script
  + Add a UI for the game over scene
  + Add a UI for logging in with a wallet
