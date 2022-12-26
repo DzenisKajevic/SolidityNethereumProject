@@ -7,7 +7,10 @@ using System;
 public class AssetBundleWebLoader : MonoBehaviour
 {
     public string bundleUrl = "http://localhost/AssetBundles/b1_pink";
-    public string assetName = "Bird 1 Pink_0";
+    // Skin select version
+    public string assetName = "Bird1 Pink Idle Variant";
+    // Playable version
+    // public string assetName = "Bird1 Pink"; 
 
     void Start()
     {
@@ -23,7 +26,7 @@ public class AssetBundleWebLoader : MonoBehaviour
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log("JEBEM TI MATER" + www.error);
+            Debug.Log(www.error);
         }
         else
         {

@@ -82,27 +82,35 @@ contract AssetBundleToken is ERC1155 {
   }
 }
 
-Theoretical steps on how to import an AssetBundle with a playable character inside of it, then replace the already-active
-playable character with the new one:
-
-1. Load the AssetBundle using the AssetBundle API.
-2. Instantiate the new playable character prefab from the AssetBundle.
-3. Use the Animation component to load the new character's animation clips.
-4. Use the Animator component to define transitions between the new character's animation states.
-5. Set the new character as the active character in the game.
-6. Use the Play() and CrossFade() methods of the Animation component to start playing the new character's animations.
-
 _______________
 
 Added Asset Bundle Browser Unity extension.
 
 Managed to somehow enable loading of characters with their animations from a server (localhost) using UnityWebRequest.
 
-- Next I need to edit the animator so that the characters only animate their movements upon jumping
-- Then I need to enable a next / previous asset bundle script that would load the rest from the server upon clicking
+- Finished (26.12; 18:46)
+ + Added a new gameplay scene, added obstacles, backgrounds, custom 2D colliders
+ + Added another prefab set for the GameObjects that will be used in the skin selection scene (no movement, different idle animation)
+
+- Next I need to:
+ + Add a spawner Object + Script for spawning obstacles
+ + Add horizontal (obstacle) and vertical (player) movement
+ + Add a GameControler script
+ + Add a UI for the game over scene
+ + Add a UI for logging in with a wallet
+
+- Plans from earlier:
+ + Then I need to enable a next / previous asset bundle script that would load the rest from the server upon clicking
  (or maybe I could download all the asset bundles upon initial load, and just swap between them for a more responsive experience)
-- Finally, edit the already existing ERC-1155 contract to:
- + mint the asset bundles to the blockchain using the main contractAddress
- + set the price for purchasing asset bundles and implement functions for how that would work
- + fetch the asset bundles that an address holds
- + optionally implement trading of said asset bundles between addresses
+ + Finally, edit the already existing ERC-1155 contract to:
+  * mint the asset bundles to the blockchain using the main contractAddress
+  * set the price for purchasing asset bundles and implement functions for how that would work
+  * fetch the asset bundles that an address holds
+  * optionally implement trading of said asset bundles between addresses
+
+- Optionally:
+ + Add a counter for collisions, AKA. score counter (started working on it, but it might be a waste of time atm)
+ + Add a UI for generating a new wallet / account
+ + Add a "skip login" option
+
+
