@@ -101,9 +101,13 @@ Managed to somehow enable loading of characters with their animations from a ser
   own wallet. MAYBE. Probably not.
 _____________________
 
+- Finished (28.12; 00:20)
+ + Added a GameController script & object + PlayerStatusScript (for keeping track of player details like: player.isDead)
+ + Added a UI for the game over scene
+ + Added a ScriptableObject for transferring data between scenes
+ (currently used for restarting scenes, but can be used later for transferring NFT bundle location)
+
 - Next I need to:
- + Add a GameControler script
- + Add a UI for the game over scene
  + Add a UI for logging in with a wallet
 
 - Plans from earlier:
