@@ -106,9 +106,16 @@ _____________________
  + Added a UI for the game over scene
  + Added a ScriptableObject for transferring data between scenes
  (currently used for restarting scenes, but can be used later for transferring NFT bundle location)
+_____________________
+
+- Finished (3.1.2023; 15:15)
+ + Added a UI Scene for logging in with a wallet
+ + Added scripts for logging in with an existing private key, for generating a new private + public key and for generating a new 
+ private + public key (or logging in, in case such an account already exists) with an HD Wallet
 
 - Next I need to:
- + Add a UI for logging in with a wallet
+ + Save the private / public keys across the game scenes
+ + Add a script for the "Continue" buttons on the login / register screen to continue to the next scenes with the previous data saved
 
 - Plans from earlier:
  + Then I need to enable a next / previous asset bundle script that would load the rest from the server upon clicking
