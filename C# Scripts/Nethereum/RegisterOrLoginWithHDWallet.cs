@@ -7,12 +7,14 @@ using Nethereum.BlockchainProcessing.BlockStorage.Entities;
 using System;
 using System.Data.SqlClient;
 using Nethereum.HdWallet;
+using UnityEditor.SceneManagement;
 
-public class HdWalletExample : MonoBehaviour
+public class RegisterOrLoginWithHDWallet : MonoBehaviour
 {
     public const string Words =
        "ripple scissors kick mammal hire column oak again sun offer wealth tomorrow wagon turn fatal";
-
+    [SerializeField]
+    private PlayerSO loggedInPlayerSO;
 
     public InputField ResultAccountAddress;
     public InputField InputWords;
@@ -31,6 +33,16 @@ public class HdWalletExample : MonoBehaviour
         ResultAccountAddress.text = account.Address;
         ResultPrivateKey.text = account.PrivateKey;
         Debug.Log(account.Address);
+    }
+    public void ContinueMnemonic()
+    {
+        // no need to check the public key, since both of them are filled in at the same time
+        if (ResultPrivateKey.text.Length != 0)
+        {
+            loggedInPlayerSO.PrivateKey = ResultPrivateKey.text;
+            loggedInPlayerSO.PublicKey = ResultAccountAddress.text;
+            EditorSceneManager.LoadScene("Flappy");
+        }
     }
 
     // Update is called once per frame

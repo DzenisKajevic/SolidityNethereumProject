@@ -112,10 +112,26 @@ _____________________
  + Added a UI Scene for logging in with a wallet
  + Added scripts for logging in with an existing private key, for generating a new private + public key and for generating a new 
  private + public key (or logging in, in case such an account already exists) with an HD Wallet
+_____________________
+
+- Finished (8.1.2023; 21:23)
+ + Added Player ScriptableObject
+ + Edited various scripts
+ + Added feature to save the private / public keys across the game scenes + log user out upon returning to the Main Menu
+ + Added functions for the "Continue" buttons on the login / register screen to continue to the next scenes with the previous data saved
+ + Adjusted UI functionalities accordingly
+
+Possible Issue with private keys might come up later (PKs that are generated through my scripts start with 0x, while the metamask PKs
+don't have 0x in front. Might need to remove 0x from custom PKs later if issues arise): 
+https://github.com/sammchardy/python-idex/issues/7
 
 - Next I need to:
- + Save the private / public keys across the game scenes
- + Add a script for the "Continue" buttons on the login / register screen to continue to the next scenes with the previous data saved
+ + Mint AssetBundles to the main account
+ + Allow users to purchase said bundles (skins)
+ + Load which bundles a user has access to upon scene entry
+ + Add "Select Skin" button in the "Flappy" scene that will transfer over to the "Skin select" scene
+ + Create skin selection and purchase features
+ + Somehow load the list of URLs for the assets saved on IPFS (Pinata.cloud)
 
 - Plans from earlier:
  + Then I need to enable a next / previous asset bundle script that would load the rest from the server upon clicking

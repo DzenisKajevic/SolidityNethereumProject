@@ -7,12 +7,14 @@ using Nethereum.BlockchainProcessing.BlockStorage.Entities;
 using System;
 using System.Data.SqlClient;
 using Nethereum.HdWallet;
+using UnityEditor.SceneManagement;
 
 public class LoginWithPrivateKey : MonoBehaviour
 {
     public const string PrivateKey =
        "d56fafc4fec3addbcf487a807d76be569942d16ef7e5bd3dc05196e8844e0626";
-
+    [SerializeField]
+    private PlayerSO loggedInPlayerSO;
     public InputField InputPrivateKey;
     public InputField ResultAccountAddress;
     //public InputField ResultPrivateKey;
@@ -30,6 +32,16 @@ public class LoginWithPrivateKey : MonoBehaviour
         ResultAccountAddress.text = account.Address;
         //ResultPrivateKey.text = account.PrivateKey;
         Debug.Log(account.Address);
+    }
+    public void ContinueLoginPrivateKey()
+    {
+        // no need to check the public key, since both of them are filled in at the same time
+        if (ResultAccountAddress.text.Length != 0)
+        {
+            loggedInPlayerSO.PrivateKey = InputPrivateKey.text;
+            loggedInPlayerSO.PublicKey = ResultAccountAddress.text;
+            EditorSceneManager.LoadScene("Flappy");
+        }
     }
 
     // Update is called once per frame

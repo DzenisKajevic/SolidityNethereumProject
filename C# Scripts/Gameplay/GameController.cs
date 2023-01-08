@@ -12,13 +12,17 @@ public class GameController : MonoBehaviour
     public PlayerStatusScript player;
     [SerializeField]
     private BoolSO restarted;
+    [SerializeField]
+    private PlayerSO loggedInPlayerSO;
 
     // public Text gameOverCountdown;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(restarted.Value);
+        Debug.Log("Restarted: " + restarted.Value);
+        Debug.Log("PrivateKey: " + loggedInPlayerSO.PrivateKey);
+        Debug.Log("PublicKey: " + loggedInPlayerSO.PublicKey);
         if (restarted.Value)
         {
             restarted.Value = false;
@@ -60,12 +64,20 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
         restartButton.SetActive(true);
         mainMenuButton.SetActive(true);
+        EditorSceneManager.LoadScene("Flappy");
     }
-
 
     public void RestartGame()
     {
         restarted.Value = true;
-        EditorSceneManager.LoadScene(0);
+        EditorSceneManager.LoadScene("Flappy");
+    }
+    public void ReturnToMainMenu()
+    {
+        restarted.Value = false;
+        loggedInPlayerSO.PrivateKey = null;
+        loggedInPlayerSO.PublicKey = null;
+        loggedInPlayerSO.AssetBundleLinkArray = null;
+        EditorSceneManager.LoadScene("Main Menu");
     }
 }
