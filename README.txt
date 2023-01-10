@@ -125,9 +125,18 @@ Possible Issue with private keys might come up later (PKs that are generated thr
 don't have 0x in front. Might need to remove 0x from custom PKs later if issues arise): 
 https://github.com/sammchardy/python-idex/issues/7
 
+_____________________
+
+- Finished (10.1.2023; 23:50)
+ + Set up Pinata.cloud IPFS
+ + Uploaded temporary AssetBundles to Pinata
+ + Edited AssetBundleWebLoader scripts to load files from IPFS (works)
+ + Started editing ERC1155 smart contract to enable minting AssetBundles to the contract address (ownerOnly), added Ownable
+
 - Next I need to:
- + Mint AssetBundles to the main account
- + Allow users to purchase said bundles (skins)
+ + Finish the purchaseAssetBundleID() public payable function to enable other accounts to purchase bundles from the contract,
+ while sending ether to the main account
+ + Mint AssetBundles to the contract address
  + Load which bundles a user has access to upon scene entry
  + Add "Select Skin" button in the "Flappy" scene that will transfer over to the "Skin select" scene
  + Create skin selection and purchase features
