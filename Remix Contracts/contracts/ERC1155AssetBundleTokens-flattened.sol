@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // File: @openzeppelin/contracts/utils/structs/EnumerableSet.sol
 
 // OpenZeppelin Contracts (last updated v4.8.0) (utils/structs/EnumerableSet.sol)
@@ -1044,6 +1045,95 @@ abstract contract Context {
 
     function _msgData() internal view virtual returns (bytes calldata) {
         return msg.data;
+    }
+}
+
+// File: @openzeppelin/contracts/access/Ownable.sol
+
+// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if the sender is not the owner.
+     */
+    function _checkOwner() internal view virtual {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(
+            newOwner != address(0),
+            "Ownable: new owner is the zero address"
+        );
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
     }
 }
 
@@ -2718,6 +2808,73 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     }
 }
 
+// File: @openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol
+
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC1155/extensions/ERC1155Supply.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Extension of ERC1155 that adds tracking of total supply per id.
+ *
+ * Useful for scenarios where Fungible and Non-fungible tokens have to be
+ * clearly identified. Note: While a totalSupply of 1 might mean the
+ * corresponding is an NFT, there is no guarantees that no other token with the
+ * same id are not going to be minted.
+ */
+abstract contract ERC1155Supply is ERC1155 {
+    mapping(uint256 => uint256) private _totalSupply;
+
+    /**
+     * @dev Total amount of tokens in with a given id.
+     */
+    function totalSupply(uint256 id) public view virtual returns (uint256) {
+        return _totalSupply[id];
+    }
+
+    /**
+     * @dev Indicates whether any token exist with a given id, or not.
+     */
+    function exists(uint256 id) public view virtual returns (bool) {
+        return ERC1155Supply.totalSupply(id) > 0;
+    }
+
+    /**
+     * @dev See {ERC1155-_beforeTokenTransfer}.
+     */
+    function _beforeTokenTransfer(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) internal virtual override {
+        super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
+
+        if (from == address(0)) {
+            for (uint256 i = 0; i < ids.length; ++i) {
+                _totalSupply[ids[i]] += amounts[i];
+            }
+        }
+
+        if (to == address(0)) {
+            for (uint256 i = 0; i < ids.length; ++i) {
+                uint256 id = ids[i];
+                uint256 amount = amounts[i];
+                uint256 supply = _totalSupply[id];
+                require(
+                    supply >= amount,
+                    "ERC1155: burn amount exceeds totalSupply"
+                );
+                unchecked {
+                    _totalSupply[id] = supply - amount;
+                }
+            }
+        }
+    }
+}
+
 // File: @openzeppelin/contracts/token/ERC1155/extensions/ERC1155Pausable.sol
 
 // OpenZeppelin Contracts v4.4.1 (token/ERC1155/extensions/ERC1155Pausable.sol)
@@ -2940,42 +3097,93 @@ contract ERC1155PresetMinterPauser is
 
 pragma solidity ^0.8.1;
 
-contract YTTokens is ERC1155PresetMinterPauser {
-    uint256 public imgIDCounter;
+contract AssetBundleTokens is
+    ERC1155PresetMinterPauser,
+    Ownable,
+    IERC1155Receiver
+{
+    uint256 public assetBundlePrice = 0.01 ether;
+    uint256 public assetBundleIDCounter = 0;
+
+    address payable contractOwner;
 
     mapping(string => uint256) public idmap;
     mapping(uint256 => string) public lookupmap;
 
-    constructor() ERC1155PresetMinterPauser("https://img.youtube.com/vi/") {
+    constructor()
+        ERC1155PresetMinterPauser("https://gateway.pinata.cloud/ipfs/")
+    {
+        contractOwner = payable(msg.sender);
         //base URI
     }
 
-    function addImgID(string memory imgID, uint256 initialSupply) external {
+    function addAssetBundleID(
+        string memory assetBundleID,
+        uint256 initialSupply
+    ) public onlyOwner {
         require(
-            hasRole(MINTER_ROLE, _msgSender()),
-            "YTTokens: must have minter role to mint"
+            idmap[assetBundleID] == 0,
+            "AssetBundleTokens: This AssetBundleID already exists"
         );
 
-        require(idmap[imgID] == 0, "YTTokens: This imgID already exists");
+        assetBundleIDCounter = assetBundleIDCounter + 1;
+        idmap[assetBundleID] = assetBundleIDCounter;
+        lookupmap[assetBundleIDCounter] = assetBundleID;
 
-        imgIDCounter = imgIDCounter + 1;
-        idmap[imgID] = imgIDCounter;
-        lookupmap[imgIDCounter] = imgID;
-
-        _mint(msg.sender, imgIDCounter, initialSupply, "");
+        _mint(address(this), assetBundleIDCounter, initialSupply, "");
     }
 
-    function uri(uint256 id)
+    function purchaseAssetBundleID(uint256 index) public payable {
+        require(
+            msg.value == assetBundlePrice,
+            "Insufficient funds for skin purchase"
+        );
+        safeTransferFrom(address(this), msg.sender, index, 1, "");
+    }
+
+    function withdraw() external onlyOwner {
+        uint256 balance = address(this).balance;
+        contractOwner.transfer(balance);
+    }
+
+    // fetches the URI for the IPFS nft
+    function uri(uint256 index)
         public
         view
         virtual
         override
         returns (string memory)
     {
-        return
-            string(
-                abi.encodePacked(super.uri(id), lookupmap[id], "/hqdefault.jpg")
-            );
+        return string(abi.encodePacked(super.uri(index), lookupmap[index]));
+    }
+
+    function getUserTokenBalanceByAssetBundleId(
+        address account,
+        string calldata assetBundleID
+    ) public view returns (uint256 balance) {
+        return balanceOf(account, idmap[assetBundleID]);
+    }
+
+    function getUserTokenBalanceByIndex(address account, uint256 index)
+        public
+        view
+        returns (uint256 balance)
+    {
+        return balanceOf(account, index);
+    }
+
+    function getContractTokenBalanceByAssetBundleId(
+        string calldata assetBundleID
+    ) public view returns (uint256 balance) {
+        return balanceOf(address(this), idmap[assetBundleID]);
+    }
+
+    function getContractTokenBalanceByIndex(uint256 index)
+        public
+        view
+        returns (uint256 balance)
+    {
+        return balanceOf(address(this), index);
     }
 
     function getAllTokens(address account)
@@ -2984,7 +3192,7 @@ contract YTTokens is ERC1155PresetMinterPauser {
         returns (uint256[] memory)
     {
         uint256 numTokens = 0;
-        for (uint256 i = 0; i <= imgIDCounter; i++) {
+        for (uint256 i = 0; i <= assetBundleIDCounter; i++) {
             if (balanceOf(account, i) > 0) {
                 numTokens++;
             }
@@ -2992,7 +3200,7 @@ contract YTTokens is ERC1155PresetMinterPauser {
 
         uint256[] memory ret = new uint256[](numTokens);
         uint256 counter = 0;
-        for (uint256 i = 0; i <= imgIDCounter; i++) {
+        for (uint256 i = 0; i <= assetBundleIDCounter; i++) {
             if (balanceOf(account, i) > 0) {
                 ret[counter] = i;
                 counter++;
@@ -3001,4 +3209,70 @@ contract YTTokens is ERC1155PresetMinterPauser {
 
         return ret;
     }
+
+    // this function is currently useless, since the other contract is no longer needed (commented out),
+
+    //function approvalForAnotherContractToSellAssetBundles(address operatorContractAddress, bool approved) public onlyOwner {
+    //    setApprovalForAll(operatorContractAddress, approved);
+    //}
+
+    function onERC1155Received(
+        address,
+        address,
+        uint256,
+        uint256,
+        bytes memory
+    ) public virtual override returns (bytes4) {
+        return this.onERC1155Received.selector;
+    }
+
+    function onERC1155BatchReceived(
+        address,
+        address,
+        uint256[] memory,
+        uint256[] memory,
+        bytes memory
+    ) public virtual override returns (bytes4) {
+        return this.onERC1155BatchReceived.selector;
+    }
+
+    // overridden so that everyone can purchase bundles from the contract
+    // previously, there was a permission error
+    // it took me 3 hours to solve... Not sure how I didn't think of overriding the base function sooner
+    // although, the contract doesn't follow ERC1155PresetMinterPauser's interface fully anymore because of this...
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) public virtual override {
+        //require(
+        //    from == _msgSender() || isApprovedForAll(from, _msgSender()),
+        //    "ERC1155: caller is not owner nor approved"
+        //);
+        _safeTransferFrom(from, to, id, amount, data);
+    }
 }
+/*
+contract AssetBundleSeller {
+    uint public assetBundlePrice = 0.01 ether;
+    address payable contractOwner;
+    
+    AssetBundleTokens private mainAssetBundleContract;
+    address private mainAssetBundleContractAddress;
+
+    constructor(address mainContractAddress)  {
+        mainAssetBundleContract = AssetBundleTokens(mainContractAddress);
+        mainAssetBundleContractAddress = mainContractAddress;
+        contractOwner = payable(msg.sender);
+    }
+
+    function purchaseAssetBundleID(uint256 index) public payable {
+        require(msg.value == assetBundlePrice, "Insufficient funds for skin purchase");
+        //mainAssetBundleContract.safeTransferFrom(mainAssetBundleContractAddress, msg.sender, index, 1, "");
+        mainAssetBundleContract.purchaseAssetBundleID(msg.sender, index);
+        contractOwner.transfer(msg.value);
+    }
+
+}*/

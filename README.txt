@@ -133,22 +133,42 @@ _____________________
  + Edited AssetBundleWebLoader scripts to load files from IPFS (works)
  + Started editing ERC1155 smart contract to enable minting AssetBundles to the contract address (ownerOnly), added Ownable
 
+_____________________
+
+- Finished (12.01.2023; 03:00)
+ + Finished watching - https://www.youtube.com/watch?v=wYOPh8TX_Tw
+ + Found useful website which lists Public IPFS Gateways: https://ipfs.github.io/public-gateway-checker/
+ + Created multiple versions of the smart contract
+ + Couldn't verify imports on Etherscan due to OpenZeppelin imports, so I decided to use the "flatten" feature in Remix 
+ to merge all the imports into 1 file directly before deploying the contract.
+ + Called functions from 1 contract to give access to ERC1155 trading for the other one
+ + Enabled minting of AssetBundles to the contract's address
+ + Bound the URI for the bundles with the IPFS node where they're uploaded (Pinata)
+ + Enabled users to purchase the bundles for 0.01 ETH 
+ + The ETH is sent to the contract address now. It used to be sent to the contract owner, but the owner can't send 
+ money to himself and it just ends up disappearing :)
+ + Added a withdraw function, which transfers the ETH from the contract to the owner
+
+// 1st contract -> https://goerli.etherscan.io/address/0xb5f0d69fc89c197b3a8ae1d3b69de09aece1f6fe#writeContract
+// 2nd contract (improved version of 1st, gives token transfer permissions to 3rd) -> https://goerli.etherscan.io/address/0x479b32454685a1c2fe5b25541ac0dda1d5383e97
+// 3rd contract (sells tokens from 2nd contract): https://goerli.etherscan.io/address/0x479b32454685a1c2fe5b25541ac0dda1d5383e97
+
+// 4th contract (Everything works!!!) [2 AM... I hate my life] -> https://goerli.etherscan.io/address/0xc2fd08660427e903df9122b0f118d763f2efe0c8
+// 5th contract (Improved version of the 4th) [2:25 AM] -> https://goerli.etherscan.io/address/0x20ba8a2112eb5fb8c03a8febb810242d46a6bac4#writeContract
+
+// 6th contract (Improved purchase functionality. Eth is sent to the contract, and can be withdrawn to the owner address)
+[2:50 AM]
+
 - Next I need to:
- + Finish the purchaseAssetBundleID() public payable function to enable other accounts to purchase bundles from the contract,
- while sending ether to the main account
- + Mint AssetBundles to the contract address
  + Load which bundles a user has access to upon scene entry
  + Add "Select Skin" button in the "Flappy" scene that will transfer over to the "Skin select" scene
  + Create skin selection and purchase features
- + Somehow load the list of URLs for the assets saved on IPFS (Pinata.cloud)
+ + Access skins from IPFS using contract's "uri" function, which is based on AssetBundle index (not CID)
 
 - Plans from earlier:
  + Then I need to enable a next / previous asset bundle script that would load the rest from the server upon clicking
  (or maybe I could download all the asset bundles upon initial load, and just swap between them for a more responsive experience)
  + Finally, edit the already existing ERC-1155 contract to:
-  * mint the asset bundles to the blockchain using the main contractAddress
-  * set the price for purchasing asset bundles and implement functions for how that would work
-  * fetch the asset bundles that an address holds
   * optionally implement trading of said asset bundles between addresses
 
 - Optionally:
