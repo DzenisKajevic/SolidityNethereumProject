@@ -159,6 +159,22 @@ _____________________
 // 6th contract (Improved purchase functionality. Eth is sent to the contract, and can be withdrawn to the owner address)
 [2:50 AM]
 
+- Immediate plans:
+  !!! MainMenu Scene !!!
+  - Prilikom logina, pozvati funkciju iz contracta koja vrati sve indekse tokena koje user ima (1, 2, 3) -> MainMenu Continue() funkcije, ScriptableObjects ili PlayerPrefs
+
+  !!! SkinSelect Scene !!!
+  - Sama funkcionalnost biranja skinova
+  - Bazirano na redoslijedu tokena u contractu, ubaciti lokalne presete u listu (red = 1, blue = ?, pink = ?)
+  - Napraviti mapping za index -> lokalni idleAssetName
+
+  !!! ili Flappy Scene ili SkinSelect scene pa transferati na Flappy; nisam siguran sta je najbolja opcija trenutno !!!
+  - Napraviti drugi mapping za index -> ERC1155 URL
+  - Napraviti treci (mozda postoji bolji nacin) mapping za index -> ERC1155 playableAssetName
+  - Prilikom povratka na MainMenu, pored brisanja priv / pub keys, pobrisati i listu tokena + selected skin SO (mozda)
+
+
+
 - Next I need to:
  + Load which bundles a user has access to upon scene entry
  + Add "Select Skin" button in the "Flappy" scene that will transfer over to the "Skin select" scene
