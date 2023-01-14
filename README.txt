@@ -156,7 +156,7 @@ _____________________
 // 4th contract (Everything works!!!) [2 AM... I hate my life] -> https://goerli.etherscan.io/address/0xc2fd08660427e903df9122b0f118d763f2efe0c8
 // 5th contract (Improved version of the 4th) [2:25 AM] -> https://goerli.etherscan.io/address/0x20ba8a2112eb5fb8c03a8febb810242d46a6bac4#writeContract
 
-// 6th contract (Improved purchase functionality. Eth is sent to the contract, and can be withdrawn to the owner address)
+// 6th contract (Improved purchase functionality. Eth is sent to the contract, and can be withdrawn to the owner address) -> https://goerli.etherscan.io/address/0xe51c2807efa9f7513dc6b2a2859eefeac15a5d75
 [2:50 AM]
 
 - Immediate plans:
@@ -173,10 +173,15 @@ _____________________
   - Napraviti treci (mozda postoji bolji nacin) mapping za index -> ERC1155 playableAssetName
   - Prilikom povratka na MainMenu, pored brisanja priv / pub keys, pobrisati i listu tokena + selected skin SO (mozda)
 
-
+- Finished (13.1.2023; 23:00)
+ + C# Contract Definition created
+ + PlayerSO changed to hold chainID, url and other info
+ + Created script: FetchBoughtSkins, which queries the blockchain for the number of skins a user has bought
+ + Adjusted Register script to attempt fetching that info upon logging in 
+ (it won't work without a login screen, since swapping scenes cancels coroutines)
 
 - Next I need to:
- + Load which bundles a user has access to upon scene entry
+ + Load which bundles a user has access to upon scene entry (LOADING SCREEN is a must due to coroutines not pausing execution)
  + Add "Select Skin" button in the "Flappy" scene that will transfer over to the "Skin select" scene
  + Create skin selection and purchase features
  + Access skins from IPFS using contract's "uri" function, which is based on AssetBundle index (not CID)
