@@ -40,7 +40,7 @@ public class LoginWithPrivateKey : MonoBehaviour
         {
             loggedInPlayerSO.PrivateKey = InputPrivateKey.text;
             loggedInPlayerSO.PublicKey = ResultAccountAddress.text;
-            EditorSceneManager.LoadScene("Flappy");
+            EditorSceneManager.LoadScene("LoadBoughtSkins");
         }
     }
 

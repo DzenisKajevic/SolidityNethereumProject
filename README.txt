@@ -173,12 +173,22 @@ _____________________
   - Napraviti treci (mozda postoji bolji nacin) mapping za index -> ERC1155 playableAssetName
   - Prilikom povratka na MainMenu, pored brisanja priv / pub keys, pobrisati i listu tokena + selected skin SO (mozda)
 
-- Finished (13.1.2023; 23:00)
+- Finished (14.1.2023; 23:00)
  + C# Contract Definition created
  + PlayerSO changed to hold chainID, url and other info
  + Created script: FetchBoughtSkins, which queries the blockchain for the number of skins a user has bought
  + Adjusted Register script to attempt fetching that info upon logging in 
  (it won't work without a login screen, since swapping scenes cancels coroutines)
+
+- Finished (15.1.2023; 23:00)
+ + Edited FetchBoughtSkins so that it transfers over to the skin select screen with the info
+ + Added loading screen before skin select
+ + Started working on the locked / unlocked skins functionality
+ + Fixed all login / register scripts
+
+ONLY MINT RED (1 -> QmS5iuPUuAYGiQxc59hQzsN4Xe33KfoQ8ijBp2VDudRRzz) AND 
+PINK (2 -> QmawWKn6aGjHM5TVeY7Tim3CZ98WsyPYohtA3tFsEnD7pU)
+BLUE (0) IS FREE.
 
 - Next I need to:
  + Load which bundles a user has access to upon scene entry (LOADING SCREEN is a must due to coroutines not pausing execution)

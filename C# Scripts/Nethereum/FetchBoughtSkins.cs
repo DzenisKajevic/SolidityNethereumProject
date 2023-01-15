@@ -12,6 +12,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 // using contract definition
 using NethereumProject.Contracts.AssetBundleTokens.ContractDefinition;
+using UnityEditor.SceneManagement;
 
 public class FetchBoughtSkins : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class FetchBoughtSkins : MonoBehaviour
     public int[] boughtSkins;
     // Start is called before the first frame update
 
+    public void Start()
+    {
+        coroutinefetchBoughtSkins();
+    }
     public void coroutinefetchBoughtSkins()
     {
         StartCoroutine(fetchBoughtSkins());
@@ -41,11 +46,23 @@ public class FetchBoughtSkins : MonoBehaviour
         yield return queryRequest.Query(new GetAllTokensFunction() { FromAddress = loggedInPlayerSO.PublicKey, Account = loggedInPlayerSO.PublicKey }, loggedInPlayerSO.contractAddress);
 
         //Getting the dto response already decoded
-        var dtoResult = queryRequest.Result;
+        var skinList = queryRequest.Result;
         // returns number of skins boughts
-        Debug.Log(dtoResult.ReturnValue1.Count);
+        loggedInPlayerSO.SkinList = skinList.ReturnValue1;
+        Debug.Log(skinList.ReturnValue1.Count);
+        for (int i = 0; i < skinList.ReturnValue1.Count; i++)
+        {
+            Debug.Log("Skin " + i + ": " + skinList.ReturnValue1[i]);
+        }
+        /*
+        foreach (var skinFTIndex in skinList.ReturnValue1)
+        {
+            Debug.Log(skinFTIndex);
+            // code block to be executed
+        }
+        */
 
-
+        EditorSceneManager.LoadScene("Skin select");
 
         /*
          * var transactionTransferRequest = new TransactionSignedUnityRequest(loggedInPlayerSO._url, loggedInPlayerSO.PrivateKey, loggedInPlayerSO.chainID);

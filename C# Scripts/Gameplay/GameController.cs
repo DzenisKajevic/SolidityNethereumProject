@@ -77,7 +77,7 @@ public class GameController : MonoBehaviour
         restarted.Value = false;
         loggedInPlayerSO.PrivateKey = null;
         loggedInPlayerSO.PublicKey = null;
-        loggedInPlayerSO.AssetBundleLinkArray = null;
+        loggedInPlayerSO.SkinList = null;
         EditorSceneManager.LoadScene("Main Menu");
     }
 }

@@ -41,7 +41,7 @@ public class RegisterOrLoginWithHDWallet : MonoBehaviour
         {
             loggedInPlayerSO.PrivateKey = ResultPrivateKey.text;
             loggedInPlayerSO.PublicKey = ResultAccountAddress.text;
-            EditorSceneManager.LoadScene("Flappy");
+            EditorSceneManager.LoadScene("LoadBoughtSkins");
         }
     }
 

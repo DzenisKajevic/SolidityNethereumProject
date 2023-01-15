@@ -13,8 +13,8 @@ public class GenerateNewAccount : MonoBehaviour
 {
     [SerializeField]
     private PlayerSO loggedInPlayerSO;
-    [SerializeField]
-    private FetchBoughtSkins fetchBoughtSkinsScript;
+    //[SerializeField]
+    //private FetchBoughtSkins fetchBoughtSkinsScript;
     public const string Words =
        "ripple scissors kick mammal hire column oak again sun offer wealth tomorrow wagon turn fatal";
 
@@ -53,7 +53,7 @@ public class GenerateNewAccount : MonoBehaviour
             // won't be able to fetch skins in time. The scene will instantly change since coroutines aren't blocking
             //fetchBoughtSkinsScript.coroutinefetchBoughtSkins();
 
-            EditorSceneManager.LoadScene("Flappy");
+            EditorSceneManager.LoadScene("LoadBoughtSkins");
         }
     }
 
