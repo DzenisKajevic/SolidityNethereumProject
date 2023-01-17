@@ -1,0 +1,46 @@
+ManifestFileVersion: 0
+CRC: 2080806100
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1d93a25e19b2560cb63d1325afd458f5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 44dd67e4cc060576a53237087211aa04
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 58
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 843fb825b7e8c5e4c88a88ffbec344d8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 75750122f1f89294dabd6e2945432a14, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Prefabs/BundledAssets/b1_pink/Bird1 Pink Idle Variant.prefab
+- Assets/Prefabs/BundledAssets/b1_pink/Bird1 Pink.prefab
+Dependencies: []

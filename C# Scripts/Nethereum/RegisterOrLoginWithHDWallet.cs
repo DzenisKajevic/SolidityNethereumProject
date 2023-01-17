@@ -7,7 +7,11 @@ using Nethereum.BlockchainProcessing.BlockStorage.Entities;
 using System;
 using System.Data.SqlClient;
 using Nethereum.HdWallet;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#else
+using UnityEngine.SceneManagement;
+#endif
 
 public class RegisterOrLoginWithHDWallet : MonoBehaviour
 {
@@ -41,7 +45,11 @@ public class RegisterOrLoginWithHDWallet : MonoBehaviour
         {
             loggedInPlayerSO.PrivateKey = ResultPrivateKey.text;
             loggedInPlayerSO.PublicKey = ResultAccountAddress.text;
+#if UNITY_EDITOR
             EditorSceneManager.LoadScene("LoadBoughtSkins");
+#else
+            SceneManager.LoadScene("LoadBoughtSkins");
+#endif
         }
     }
 

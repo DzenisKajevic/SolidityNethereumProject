@@ -7,7 +7,11 @@ using Nethereum.BlockchainProcessing.BlockStorage.Entities;
 using System;
 using System.Data.SqlClient;
 using Nethereum.HdWallet;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#else
+using UnityEngine.SceneManagement;
+#endif
 
 public class GenerateNewAccount : MonoBehaviour
 {
@@ -53,7 +57,11 @@ public class GenerateNewAccount : MonoBehaviour
             // won't be able to fetch skins in time. The scene will instantly change since coroutines aren't blocking
             //fetchBoughtSkinsScript.coroutinefetchBoughtSkins();
 
+#if UNITY_EDITOR
             EditorSceneManager.LoadScene("LoadBoughtSkins");
+#else
+            SceneManager.LoadScene("LoadBoughtSkins");
+#endif
         }
     }
 

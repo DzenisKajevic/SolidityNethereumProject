@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#else
+using UnityEngine.SceneManagement;
+#endif
 
 public class GameController : MonoBehaviour
 {
+    public new GameObject camera;
     public GameObject startButton;
     public GameObject restartButton;
     public GameObject mainMenuButton;
@@ -14,6 +19,8 @@ public class GameController : MonoBehaviour
     private BoolSO restarted;
     [SerializeField]
     private PlayerSO loggedInPlayerSO;
+    [SerializeField]
+    private LoadSkin loadSkinScript;
 
     // public Text gameOverCountdown;
 
@@ -23,13 +30,27 @@ public class GameController : MonoBehaviour
         Debug.Log("Restarted: " + restarted.Value);
         Debug.Log("PrivateKey: " + loggedInPlayerSO.PrivateKey);
         Debug.Log("PublicKey: " + loggedInPlayerSO.PublicKey);
+        /*
         if (restarted.Value)
         {
+            Debug.Log("Restarted: " + restarted.Value);
             restarted.Value = false;
+            camera.transform.position = new Vector3(0, 0, -25);
             StartGame();
         }
         //gameOverCountdown.gameObject.SetActive(false);
-        else Time.timeScale = 0;
+        else
+        {
+            Debug.Log("Restarted: " + restarted.Value);
+            Time.timeScale = 0;
+
+            StartCoroutine(loadSkinScript.loadSkin());
+            
+        }
+        */
+        Time.timeScale = 0;
+
+        StartCoroutine(loadSkinScript.loadSkin());
     }
 
     private void Update()
@@ -64,13 +85,18 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
         restartButton.SetActive(true);
         mainMenuButton.SetActive(true);
-        EditorSceneManager.LoadScene("Flappy");
+        //EditorSceneManager.LoadScene("Flappy");
     }
 
     public void RestartGame()
     {
         restarted.Value = true;
+#if UNITY_EDITOR
         EditorSceneManager.LoadScene("Flappy");
+#else
+        SceneManager.LoadScene("Flappy");
+#endif
+
     }
     public void ReturnToMainMenu()
     {
@@ -78,6 +104,11 @@ public class GameController : MonoBehaviour
         loggedInPlayerSO.PrivateKey = null;
         loggedInPlayerSO.PublicKey = null;
         loggedInPlayerSO.SkinList = null;
-        EditorSceneManager.LoadScene("Main Menu");
+#if UNITY_EDITOR
+            EditorSceneManager.LoadScene("Main Menu");
+#else
+        SceneManager.LoadScene("Main Menu");
+#endif
+
     }
 }

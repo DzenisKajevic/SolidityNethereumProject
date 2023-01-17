@@ -12,7 +12,11 @@ using UnityEngine;
 using UnityEngine.Assertions;
 // using contract definition
 using NethereumProject.Contracts.AssetBundleTokens.ContractDefinition;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#else
+using UnityEngine.SceneManagement;
+#endif
 
 public class FetchBoughtSkins : MonoBehaviour
 {
@@ -62,7 +66,11 @@ public class FetchBoughtSkins : MonoBehaviour
         }
         */
 
+#if UNITY_EDITOR
         EditorSceneManager.LoadScene("Skin select");
+#else
+        SceneManager.LoadScene("Skin select");
+#endif
 
         /*
          * var transactionTransferRequest = new TransactionSignedUnityRequest(loggedInPlayerSO._url, loggedInPlayerSO.PrivateKey, loggedInPlayerSO.chainID);

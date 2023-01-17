@@ -190,21 +190,33 @@ ONLY MINT RED (1 -> QmS5iuPUuAYGiQxc59hQzsN4Xe33KfoQ8ijBp2VDudRRzz) AND
 PINK (2 -> QmawWKn6aGjHM5TVeY7Tim3CZ98WsyPYohtA3tFsEnD7pU)
 BLUE (0) IS FREE.
 
+
+- Finished (17.1.2023; 21:30)
+ + Improved assetBundle prefabs: added PlayerStatusScript, fixed sortingLayer issues, etc.
+ + New contract address due to assetBundles needed to be changed: https://goerli.etherscan.io/address/0x65724360670a18bc2a2fa3041bd78f483e34a3d4
+ + Could not generate AssetBundles due to the Editor Build mechanism throwing errors for using UnityEditor.SceneManagement
+ instead of UnityEngine.SceneManagement, so I had to go through every script that used that import and add preprocessor rules
+ + Restructured project for PlasticSCM
+ + Generated new AssetBundles
+ + Minted b1_red AssetBundle
+ + Fixed Skin Select scene to react to the information that the user has or does not have a bundle bought
+ (the user can continue if bought, or TO BE IMPLEMENTED: buy the bundle if not)
+ + Added fetching urls for assetBundles
+ + Loading bought skins from assetBundles (blockchain) works
+ + Avoided making a new loading screen for this (camera is moved to the player once the bundle is fully loaded instead,
+  which makes it a lot easier and faster develop)
+ + Added a backup for AssetBundles on this repo in case something breaks again...
+
 - Next I need to:
- + Load which bundles a user has access to upon scene entry (LOADING SCREEN is a must due to coroutines not pausing execution)
- + Add "Select Skin" button in the "Flappy" scene that will transfer over to the "Skin select" scene
- + Create skin selection and purchase features
- + Access skins from IPFS using contract's "uri" function, which is based on AssetBundle index (not CID)
+ + Enable purchasing of bundles (might be complicated, we will see... Not sure if events are required, but they
+ should be present in the contract by default, if I'm not mistaken)
 
 - Plans from earlier:
- + Then I need to enable a next / previous asset bundle script that would load the rest from the server upon clicking
- (or maybe I could download all the asset bundles upon initial load, and just swap between them for a more responsive experience)
  + Finally, edit the already existing ERC-1155 contract to:
   * optionally implement trading of said asset bundles between addresses
 
 - Optionally:
  + Add a counter for collisions, AKA. score counter (started working on it, but it might be a waste of time atm)
- + Add a UI for generating a new wallet / account
  + Add a "skip login" option
 
 

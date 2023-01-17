@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#else
+using UnityEngine.SceneManagement;
+#endif
+using Nethereum.Unity.Rpc;
+using NethereumProject.Contracts.AssetBundleTokens.ContractDefinition;
 
 public class SkinSelectorScript : MonoBehaviour
 {
-    public PlayerSO ethereumPlayerProfileInfo;
+
+    public PlayerSO loggedInPlayerSO;
     public SkinDatabaseSO skinDatabase;
     public int selectedOption = 0;
     public GameObject currentSkin;
@@ -14,6 +22,7 @@ public class SkinSelectorScript : MonoBehaviour
     private GameObject mainButton;
     [SerializeField]
     private TMP_Text mainButtonText;
+    private string buyOrContinue = "Continue";
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +30,44 @@ public class SkinSelectorScript : MonoBehaviour
 
     }
 
+    public void mainButtonOnClick()
+    {
+        if (buyOrContinue == "Continue")
+        {
+            loggedInPlayerSO.skinIndex = selectedOption;
+#if UNITY_EDITOR
+            EditorSceneManager.LoadScene("Flappy");
+#else
+            SceneManager.LoadScene("Flappy");
+#endif
+        }
+        else
+        {
+            Debug.Log("Purchasing skin");
+            // call contract and buy the skin
+        }
+    }
+
     public void changeButtonColour()
     {
-        mainButton.GetComponent<Image>().color = new Color(152, 255, 0);
-        mainButtonText.text = "Continue";
-        //mainButton.GetComponent<Image>().color = Color.white;
+        // if the skin is the free one (blue) or the user has bought the selected skin, allow them to continue
+        //
+        if (selectedOption == 0 || loggedInPlayerSO.SkinList.Contains(selectedOption))
+        {
+            mainButton.GetComponent<Image>().color = new Color(152, 255, 0);
+            mainButtonText.text = "Continue";
+            buyOrContinue = "Continue";
+        }
+        else
+        {
+            mainButton.GetComponent<Image>().color = Color.white;
+            mainButtonText.text = "Purchase (0.01 ETH)";
+            buyOrContinue = "Buy Skin";
+        }
     }
 
     public void NextOption()
     {
-        changeButtonColour();
         selectedOption++;
         if (selectedOption >= skinDatabase.SkinCount)
         {
@@ -38,6 +75,7 @@ public class SkinSelectorScript : MonoBehaviour
         }
 
         Debug.Log(selectedOption);
+        changeButtonColour();
         SwapCharacter(skinDatabase.skinList[selectedOption]);
     }
 
@@ -50,6 +88,7 @@ public class SkinSelectorScript : MonoBehaviour
         }
 
         Debug.Log(selectedOption);
+        changeButtonColour();
         SwapCharacter(skinDatabase.skinList[selectedOption]);
     }
 
