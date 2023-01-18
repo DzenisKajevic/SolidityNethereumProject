@@ -12,6 +12,9 @@ using Nethereum.Unity.Rpc;
 using NethereumProject.Contracts.AssetBundleTokens.ContractDefinition;
 using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using System;
+using Nethereum.Util;
 
 public class SkinSelectorScript : MonoBehaviour
 {
@@ -29,13 +32,27 @@ public class SkinSelectorScript : MonoBehaviour
     [SerializeField]
     private TMP_Text mainButtonText;
     private string buyOrContinue = "Continue";
+    [SerializeField]
+    private TMP_Text publicKeyText;
+    [SerializeField]
+    private TMP_Text balanceText;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-
+        publicKeyText.text = loggedInPlayerSO.PublicKey;
+        balanceText.text = "Balance: " + loggedInPlayerSO.balance + " ETH";
     }
+
+    public void returnToMainMenu()
+    {
+        loggedInPlayerSO.resetValues();
+#if UNITY_EDITOR
+        EditorSceneManager.LoadScene("Main Menu");
+#else
+        SceneManager.LoadScene("Main Menu");
+#endif
+    }
+
 
     public void mainButtonOnClick()
     {
@@ -50,10 +67,9 @@ public class SkinSelectorScript : MonoBehaviour
         }
         else
         {
-
+            // call contract and buy the skin
             StartCoroutine(purchaseSkin());
             Debug.Log("Purchasing skin");
-            // call contract and buy the skin
         }
     }
 
@@ -71,7 +87,6 @@ public class SkinSelectorScript : MonoBehaviour
         };
         transactionMessage.AmountToSend = 10000000000000000;
         Debug.Log(transactionMessage);
-        //var purchase = contract.GetFunction("PurchaseAssetBundleID").SendTransactionAndWaitForReceiptAsync(loggedInPlayerSO.PublicKey, GAS_LIMIT, new HexBigInteger(10000000000000000), null, transactionMessage);
         yield return transactionTransferRequest.SignAndSendTransaction<PurchaseAssetBundleIDFunction>(transactionMessage, loggedInPlayerSO.contractAddress);
 
         var transactionTransferHash = transactionTransferRequest.Result;
@@ -89,6 +104,11 @@ public class SkinSelectorScript : MonoBehaviour
             // if the purchase was successful, add the skin to the bought skin list and change the button to enable to player to continue
             loggedInPlayerSO.SkinList.Add(selectedOption);
             loggedInPlayerSO.SkinList.Sort();
+            var balanceRequest = new EthGetBalanceUnityRequest(loggedInPlayerSO._url);
+            yield return balanceRequest.SendRequest(loggedInPlayerSO.PublicKey, BlockParameter.CreateLatest());
+
+            loggedInPlayerSO.balance = Math.Round(UnitConversion.Convert.FromWei(balanceRequest.Result.Value), 7);
+            balanceText.text = "Balance: " + loggedInPlayerSO.balance + " ETH";
             changeButtonColour();
             enableInterface(true);
         }
@@ -110,7 +130,6 @@ public class SkinSelectorScript : MonoBehaviour
     public void changeButtonColour()
     {
         // if the skin is the free one (blue) or the user has bought the selected skin, allow them to continue
-        //
         if (selectedOption == 0 || loggedInPlayerSO.SkinList.Contains(selectedOption))
         {
             mainButton.GetComponent<Image>().color = new Color(152, 255, 0);
@@ -156,15 +175,12 @@ public class SkinSelectorScript : MonoBehaviour
         Debug.Log(selectedOption + " Idle Variant");
         // save the location of the old skin
         Transform position = currentSkin.transform;
-        // load the new skin's prefab from the Resources/Birds folder
-        //GameObject currentSkinPrefab = (GameObject)Resources.Load("Birds/" + selectedOption + " Idle Variant");
 
         // remove the current skin
         Destroy(currentSkin, 0);
-        currentSkin = Instantiate(Resources.Load("Birds/" + selectedOption + " Idle Variant", typeof(GameObject))) as GameObject;
         // instantiate the new skin
-        //currentSkin = (GameObject)Instantiate(currentSkinPrefab, position);
-        //currentSkinPrefab = null;
+        currentSkin = Instantiate(Resources.Load("Birds/" + selectedOption + " Idle Variant", typeof(GameObject))) as GameObject;
+
     }
 
     // Update is called once per frame

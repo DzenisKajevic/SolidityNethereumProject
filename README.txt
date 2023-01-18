@@ -217,10 +217,15 @@ BLUE (0) IS FREE.
  + Once the purchase is finished the buttons are enabled, and if it was successful, the skin is added 
  to the bought skins list
 
+- Finished (18.1.2023; 22:37)
+ + Improved clearing of player info upon returning to main menu
+ + Added public key textbox on the skin select screen
+ + Added account balance & skin price textboxes on the skin select screen
+ + Added ability to fetch the account's ETH balance 
+ + Added automatic refresh of ETH balance upon successful skin purchase
+
 - Next I need to:
  + Add a "Main Menu" button in the skin selection scene
- + Show the public address of the player
- + Show the current balance (behind a toggleable field in the skin select scene)
 
 - Plans from earlier:
  + Finally, edit the already existing ERC-1155 contract to:
