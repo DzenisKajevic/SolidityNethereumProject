@@ -10,10 +10,9 @@ using Nethereum.Contracts.CQS;
 using Nethereum.Contracts;
 using System.Threading;
 
+
 namespace NethereumProject.Contracts.AssetBundleTokens.ContractDefinition
 {
-
-
     public partial class AssetBundleTokensDeployment : AssetBundleTokensDeploymentBase
     {
         public AssetBundleTokensDeployment() : base(BYTECODE) { }
@@ -839,6 +838,5 @@ namespace NethereumProject.Contracts.AssetBundleTokens.ContractDefinition
         [Parameter("string", "", 1)]
         public virtual string ReturnValue1 { get; set; }
     }
-
 
 }

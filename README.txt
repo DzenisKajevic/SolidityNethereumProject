@@ -207,9 +207,20 @@ BLUE (0) IS FREE.
   which makes it a lot easier and faster develop)
  + Added a backup for AssetBundles on this repo in case something breaks again...
 
+- Finished (18.1.2023; 17:14)
+ + Somehow managed to implement purchasing of skins (the documentation for Nethereum is horrible... There are a million
+ different ways to call a writeable function from the contract, but are either too bloated to implement or are missing
+ the required documentation (somehow managed to find the answer to my issue -> sending ethereum to the contract in the
+ official Discord -> The person who intially asked that question ended up fighting with the mods for 2 hours 
+ before getting a proper answer...)
+ + Once the user starts purchasing a skin, the other buttons are disabled to not break something
+ + Once the purchase is finished the buttons are enabled, and if it was successful, the skin is added 
+ to the bought skins list
+
 - Next I need to:
- + Enable purchasing of bundles (might be complicated, we will see... Not sure if events are required, but they
- should be present in the contract by default, if I'm not mistaken)
+ + Add a "Main Menu" button in the skin selection scene
+ + Show the public address of the player
+ + Show the current balance (behind a toggleable field in the skin select scene)
 
 - Plans from earlier:
  + Finally, edit the already existing ERC-1155 contract to:
@@ -217,6 +228,10 @@ BLUE (0) IS FREE.
 
 - Optionally:
  + Add a counter for collisions, AKA. score counter (started working on it, but it might be a waste of time atm)
- + Add a "skip login" option
+ + Score uploader for the blockchain
+ + Maybe make the contract more complex by adding Upgradeable(?) or something else.
+ Not sure how that would work with Nethereum though;
+ probably not so well...
+ + Add a "skip login" option -> no need, the player can just generate a new account in a split second and continue
 
 

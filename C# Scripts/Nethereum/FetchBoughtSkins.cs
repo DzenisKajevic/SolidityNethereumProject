@@ -71,28 +71,5 @@ public class FetchBoughtSkins : MonoBehaviour
 #else
         SceneManager.LoadScene("Skin select");
 #endif
-
-        /*
-         * var transactionTransferRequest = new TransactionSignedUnityRequest(loggedInPlayerSO._url, loggedInPlayerSO.PrivateKey, loggedInPlayerSO.chainID);
-
-        transactionTransferRequest.UseLegacyAsDefault = true;
-
-        var transactionMessage = new GetAllTokensFunction
-        {
-            FromAddress = loggedInPlayerSO.PublicKey,
-            Account = loggedInPlayerSO.PublicKey
-        };
-        Debug.Log(transactionMessage);
-        yield return transactionTransferRequest.SignAndSendTransaction(transactionMessage, loggedInPlayerSO.contractAddress);
-
-        var transactionTransferHash = transactionTransferRequest.Result;
-
-        Debug.Log("Transfer txn hash:" + transactionTransferHash);
-
-        var transactionReceiptPolling = new TransactionReceiptPollingRequest(loggedInPlayerSO._url);
-        yield return transactionReceiptPolling.PollForReceipt(transactionTransferHash, 2);
-        var transferReceipt = transactionReceiptPolling.Result;
-        Debug.Log(transferReceipt);
-        */
     }
 }

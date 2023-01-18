@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 #endif
 using Nethereum.Unity.Rpc;
 using NethereumProject.Contracts.AssetBundleTokens.ContractDefinition;
+using Nethereum.Contracts;
+using Nethereum.Hex.HexTypes;
 
 public class SkinSelectorScript : MonoBehaviour
 {
@@ -19,10 +21,15 @@ public class SkinSelectorScript : MonoBehaviour
     public int selectedOption = 0;
     public GameObject currentSkin;
     [SerializeField]
-    private GameObject mainButton;
+    private Button mainButton;
+    [SerializeField]
+    private Button previousButton;
+    [SerializeField]
+    private Button nextButton;
     [SerializeField]
     private TMP_Text mainButtonText;
     private string buyOrContinue = "Continue";
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,9 +50,61 @@ public class SkinSelectorScript : MonoBehaviour
         }
         else
         {
+
+            StartCoroutine(purchaseSkin());
             Debug.Log("Purchasing skin");
             // call contract and buy the skin
         }
+    }
+
+    public IEnumerator purchaseSkin()
+    {
+        enableInterface(false);
+        var transactionTransferRequest = new TransactionSignedUnityRequest(loggedInPlayerSO._url, loggedInPlayerSO.PrivateKey, loggedInPlayerSO.chainID);
+
+        transactionTransferRequest.UseLegacyAsDefault = true;
+
+        var transactionMessage = new PurchaseAssetBundleIDFunction
+        {
+            FromAddress = loggedInPlayerSO.PublicKey,
+            Index = selectedOption
+        };
+        transactionMessage.AmountToSend = 10000000000000000;
+        Debug.Log(transactionMessage);
+        //var purchase = contract.GetFunction("PurchaseAssetBundleID").SendTransactionAndWaitForReceiptAsync(loggedInPlayerSO.PublicKey, GAS_LIMIT, new HexBigInteger(10000000000000000), null, transactionMessage);
+        yield return transactionTransferRequest.SignAndSendTransaction<PurchaseAssetBundleIDFunction>(transactionMessage, loggedInPlayerSO.contractAddress);
+
+        var transactionTransferHash = transactionTransferRequest.Result;
+
+        if (transactionTransferRequest.Exception == null)
+        {
+            Debug.Log("Transfer txn hash:" + transactionTransferHash);
+
+            var transactionReceiptPolling = new TransactionReceiptPollingRequest(loggedInPlayerSO._url);
+            yield return transactionReceiptPolling.PollForReceipt(transactionTransferHash, 2);
+            var transferReceipt = transactionReceiptPolling.Result;
+
+            Debug.Log(transferReceipt.Logs);
+
+            // if the purchase was successful, add the skin to the bought skin list and change the button to enable to player to continue
+            loggedInPlayerSO.SkinList.Add(selectedOption);
+            loggedInPlayerSO.SkinList.Sort();
+            changeButtonColour();
+            enableInterface(true);
+        }
+        else
+        {
+            Debug.Log("RW: Error submitted tx: " + transactionTransferRequest.Exception.Message);
+            enableInterface(true);
+        }
+
+    }
+
+    public void enableInterface(bool state)
+    {
+        mainButton.interactable = state;
+        previousButton.interactable = state;
+        nextButton.interactable = state;
     }
 
     public void changeButtonColour()
