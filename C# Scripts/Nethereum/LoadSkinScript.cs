@@ -4,13 +4,14 @@ using UnityEngine;
 using Nethereum.Unity.Rpc;
 using NethereumProject.Contracts.AssetBundleTokens.ContractDefinition;
 using UnityEngine.Networking;
+using TMPro;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 #else
 using UnityEngine.SceneManagement;
 #endif
 
-public class LoadSkin : MonoBehaviour
+public class LoadSkinScript : MonoBehaviour
 {
     [SerializeField]
     private PlayerSO loggedInPlayerSO;
@@ -20,13 +21,6 @@ public class LoadSkin : MonoBehaviour
     private GameController gameControllerScript;
     [SerializeField]
     private BoolSO restarted;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //161.8 48.5 -228.3
-        // 0, 0, -25
-    }
     public IEnumerator loadSkin()
     {
         Debug.Log("chainURL: " + loggedInPlayerSO._url);
@@ -50,7 +44,7 @@ public class LoadSkin : MonoBehaviour
         // Else fetch skin url...
         else
         {
-            Debug.Log("SkinIndes != 0");
+            Debug.Log("SkinIndex != 0");
             //Query request using our acccount and the contracts address (no parameters needed and default values)
             var queryRequest = new QueryUnityRequest<UriFunction, UriOutputDTO>(loggedInPlayerSO._url, loggedInPlayerSO.PublicKey);
             yield return queryRequest.Query(new UriFunction() { FromAddress = loggedInPlayerSO.PublicKey, Index = loggedInPlayerSO.skinIndex }, loggedInPlayerSO.contractAddress);
@@ -62,7 +56,7 @@ public class LoadSkin : MonoBehaviour
             Debug.Log(loggedInPlayerSO.skinURL);
 
             // ... Finally, load the skin from the url
-            StartCoroutine(InstantiateSkin(loggedInPlayerSO.skinURL, skinDatabaseSO.skinList[loggedInPlayerSO.skinIndex]));
+            yield return StartCoroutine(InstantiateSkin(loggedInPlayerSO.skinURL, skinDatabaseSO.skinList[loggedInPlayerSO.skinIndex]));
         }
     }
 
@@ -100,11 +94,5 @@ public class LoadSkin : MonoBehaviour
                 restarted.Value = false;
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

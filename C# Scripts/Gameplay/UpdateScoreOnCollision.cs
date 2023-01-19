@@ -13,7 +13,7 @@ public class UpdateScoreOnCollision : MonoBehaviour
     void Start()
     {
         scoreText = GameObject.Find("Score").GetComponent<TMP_Text>();
-        Debug.Log(scoreText);
+        //Debug.Log(scoreText);
     }
 
     // Update is called once per frames

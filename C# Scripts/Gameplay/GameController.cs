@@ -12,26 +12,22 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public new GameObject camera;
-    public GameObject startButton;
-    public GameObject restartButton;
-    public GameObject mainMenuButton;
-    public PlayerStatusScript player;
+    public Button startButton;
+    public Button restartButton;
+    public Button mainMenuButton;
+    public Button submitScoreButton;
     [SerializeField]
     private BoolSO restarted;
     [SerializeField]
     private PlayerSO loggedInPlayerSO;
     [SerializeField]
-    private LoadSkin loadSkinScript;
-    [SerializeField]
-    private TMP_Text leaderboardText;
+    private LoadSceneScript loadSceneScript;
 
     // public Text gameOverCountdown;
 
     // Start is called before the first frame update
     void Start()
     {
-        leaderboardText.text = "100: " + loggedInPlayerSO.PublicKey + "\n99: " + loggedInPlayerSO.PublicKey
-            + "\n98: " + loggedInPlayerSO.PublicKey + "\n97: " + loggedInPlayerSO.PublicKey + "\n96: " + loggedInPlayerSO.PublicKey;
         /*
         Debug.Log("Restarted: " + restarted.Value);
         Debug.Log("PrivateKey: " + loggedInPlayerSO.PrivateKey);
@@ -39,7 +35,7 @@ public class GameController : MonoBehaviour
         */
         Time.timeScale = 0;
 
-        StartCoroutine(loadSkinScript.loadSkin());
+        StartCoroutine(loadSceneScript.loadScene());
     }
 
     private void Update()
@@ -49,17 +45,21 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        startButton.SetActive(false);
-        restartButton.SetActive(false);
-        mainMenuButton.SetActive(false);
+        startButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
+        mainMenuButton.gameObject.SetActive(false);
         Time.timeScale = 1;
     }
 
     public void GameOver()
     {
         Time.timeScale = 0;
-        restartButton.SetActive(true);
-        mainMenuButton.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+        mainMenuButton.gameObject.SetActive(true);
+        if (loggedInPlayerSO._leaderboardScoreList.Count < 5 || TrackScoreGUISO.score > loggedInPlayerSO._leaderboardScoreList[4])
+        {
+            submitScoreButton.gameObject.SetActive(true);
+        }
     }
 
     public void RestartGame()
@@ -77,11 +77,19 @@ public class GameController : MonoBehaviour
     {
         restarted.Value = false;
         loggedInPlayerSO.resetValues();
+        TrackScoreGUISO.score = 0;
 #if UNITY_EDITOR
-            EditorSceneManager.LoadScene("Main Menu");
+        EditorSceneManager.LoadScene("Main Menu");
 #else
         SceneManager.LoadScene("Main Menu");
 #endif
 
+    }
+    public void enableInterface(bool state)
+    {
+        submitScoreButton.interactable = state;
+        mainMenuButton.interactable = state;
+        restartButton.interactable = state;
+        startButton.interactable = state;
     }
 }

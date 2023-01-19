@@ -244,10 +244,20 @@ BLUE (0) IS FREE.
  + Generated new C# contract definitions
  + New Leaderboard contract address: https://goerli.etherscan.io/address/0xeF2F6f31e51E703d08f006689978e6369f72Af83
 
-- Next I need to:
- + Call the Leaderboard contract inside the game to:
-  * upload score
-  * fetch current top 5 scores (LeaderboardFunction called 5 times)
+- Finished (19.1.2023; 21:35)
+ + Added calls (both write and read) for the Leaderboard contract
+ + Able to upload score
+ + Able to load top 5 scores
+ + Made sure that the transaction is sent from the account that has permission to upload scores
+ + Reorganized scripts
+ + Made sure everything loads properly before unfreezing scenes
+
+- Big problems:
+ + The skin purchase and leaderboard score upload have identical logic for sending transactions,
+   however, skin purchases receive the transaction receipt when the transaction is confirmed on the chain,
+   while score upload continues polling infinitely, even after the transaction is confirmed...
+   I have no idea why this is happening, it should be working properly...
+   Asked on the official Discord support channel, but nobody is responding :) :) :) :)
 
 - Plans which probably won't be fulfilled:
  + Trading of skins between players 
