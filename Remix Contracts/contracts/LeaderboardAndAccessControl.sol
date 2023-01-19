@@ -41,13 +41,12 @@ contract AccessControl {
         returns (string memory resultingString)
     {
         uint8 i = 0;
-        uint8 j;
         while (i < 32 && _bytes32[i] != 0) {
             i++;
         }
         bytes memory bytesArray = new bytes(i);
-        for (j = 0; j < i; j++) {
-            bytesArray[j] = _bytes32[j];
+        for (i = 0; i < 32 && _bytes32[i] != 0; i++) {
+            bytesArray[i] = _bytes32[i];
         }
         return string(bytesArray);
     }
@@ -85,7 +84,8 @@ contract AccessControl {
 
 contract Leaderboard is AccessControl {
     address owner;
-    uint256 leaderboardLength = 5;
+    uint8 maxLeaderboardLength = 5;
+    uint8 leaderboardLength = 0;
 
     // create an array of ScoreSubmissions
     mapping(uint256 => ScoreSubmission) public leaderboard;
@@ -106,22 +106,56 @@ contract Leaderboard is AccessControl {
         _;
     }
 
+    function getLeaderboardLength() public view returns (uint8) {
+        return leaderboardLength;
+    }
+
+    function getLeaderboard()
+        public
+        view
+        returns (address[] memory, uint256[] memory)
+    {
+        if (leaderboardLength == 0) {
+            address[] memory addresses;
+            uint256[] memory scores;
+            return (addresses, scores);
+        } else {
+            address[] memory addresses = new address[](leaderboardLength);
+            uint256[] memory scores = new uint256[](leaderboardLength);
+
+            for (uint8 i = 0; i < leaderboardLength; i++) {
+                addresses[i] = leaderboard[i].scoreHolder;
+                scores[i] = leaderboard[i].score;
+            }
+            return (addresses, scores);
+        }
+    }
+
     // owner calls to update leaderboard
     function addScore(address scoreHolderAddress, uint256 score)
         public
         onlyRole(ADMIN)
         returns (bool addedToLeaderboard)
     {
+        if (leaderboardLength < 5) {
+            leaderboard[leaderboardLength] = ScoreSubmission({
+                scoreHolder: scoreHolderAddress,
+                score: score
+            });
+            leaderboardLength++;
+            return true;
+        }
+
         // if the score is too low, don't update
-        if (leaderboard[leaderboardLength - 1].score >= score) return false;
+        if (leaderboard[maxLeaderboardLength - 1].score >= score) return false;
 
         // loop through the leaderboard
-        for (uint256 i = 0; i < leaderboardLength; i++) {
+        for (uint256 i = 0; i < maxLeaderboardLength; i++) {
             // find where to insert the new score
             if (leaderboard[i].score < score) {
                 // shift leaderboard
                 ScoreSubmission memory currentUser = leaderboard[i];
-                for (uint256 j = i + 1; j < leaderboardLength + 1; j++) {
+                for (uint256 j = i + 1; j < maxLeaderboardLength + 1; j++) {
                     ScoreSubmission memory nextUser = leaderboard[j];
                     leaderboard[j] = currentUser;
                     currentUser = nextUser;
@@ -134,7 +168,7 @@ contract Leaderboard is AccessControl {
                 });
 
                 // delete last from list
-                delete leaderboard[leaderboardLength];
+                delete leaderboard[maxLeaderboardLength];
 
                 return true;
             }

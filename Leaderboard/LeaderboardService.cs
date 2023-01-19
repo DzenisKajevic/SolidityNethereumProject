@@ -95,6 +95,27 @@ namespace Nethereum tutorial.Contracts.Leaderboard
             return ContractHandler.QueryAsync<Bytes32ToStrFunction, string>(bytes32ToStrFunction, blockParameter);
         }
 
+        public Task<GetLeaderboardOutputDTO> GetLeaderboardQueryAsync(GetLeaderboardFunction getLeaderboardFunction, BlockParameter blockParameter = null)
+        {
+            return ContractHandler.QueryDeserializingToObjectAsync<GetLeaderboardFunction, GetLeaderboardOutputDTO>(getLeaderboardFunction, blockParameter);
+        }
+
+        public Task<GetLeaderboardOutputDTO> GetLeaderboardQueryAsync(BlockParameter blockParameter = null)
+        {
+            return ContractHandler.QueryDeserializingToObjectAsync<GetLeaderboardFunction, GetLeaderboardOutputDTO>(null, blockParameter);
+        }
+
+        public Task<byte> GetLeaderboardLengthQueryAsync(GetLeaderboardLengthFunction getLeaderboardLengthFunction, BlockParameter blockParameter = null)
+        {
+            return ContractHandler.QueryAsync<GetLeaderboardLengthFunction, byte>(getLeaderboardLengthFunction, blockParameter);
+        }
+
+        
+        public Task<byte> GetLeaderboardLengthQueryAsync(BlockParameter blockParameter = null)
+        {
+            return ContractHandler.QueryAsync<GetLeaderboardLengthFunction, byte>(null, blockParameter);
+        }
+
         public Task<string> GrantRoleRequestAsync(GrantRoleFunction grantRoleFunction)
         {
              return ContractHandler.SendRequestAsync(grantRoleFunction);

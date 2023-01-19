@@ -237,6 +237,13 @@ BLUE (0) IS FREE.
   * AccessControl gives the Admin role to certain accounts so only they can upload info to the leaderboard
  + Generated contract definitions for AccessControl & Leaderboard contracts
 
+- Finished (19.1.2023; 19:30)
+ + Recreated Leaderboard contract so it can return an array of structs
+   The previous one could only return top 5 record holders 1 by 1, which would is very inefficient...
+ + Added a function to return the current leaderboard length
+ + Generated new C# contract definitions
+ + New Leaderboard contract address: https://goerli.etherscan.io/address/0xeF2F6f31e51E703d08f006689978e6369f72Af83
+
 - Next I need to:
  + Call the Leaderboard contract inside the game to:
   * upload score
@@ -248,4 +255,5 @@ BLUE (0) IS FREE.
  + Adding usernames for each player (pubkey -> username and username -> pubkey mapping)
   * Reason: How to make sure that both the AssetBundleVendor and the Leaderboard contract have the same user mappings?
     It's probably doable, but I don't have enough time currently. I wouldn't want to mess something up for tomorrow
-
+ + Getter function which returns the list of all users with specified roles 
+ (extracted from mapping(bytes32 => mapping(address => bool))
