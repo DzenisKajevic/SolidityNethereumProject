@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerStatusScript : MonoBehaviour
 {
-    public GameController gameController;
+    public GameController gameControllerScript;
     public bool isDead = false;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        GameObject gameController = GameObject.Find("GameController");
+        gameControllerScript = gameController.GetComponent<GameController>();
         isDead = true;
-        gameController.GameOver();
+        gameControllerScript.GameOver();
     }
 }

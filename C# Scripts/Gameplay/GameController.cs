@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 #else
@@ -21,12 +22,16 @@ public class GameController : MonoBehaviour
     private PlayerSO loggedInPlayerSO;
     [SerializeField]
     private LoadSkin loadSkinScript;
+    [SerializeField]
+    private TMP_Text leaderboardText;
 
     // public Text gameOverCountdown;
 
     // Start is called before the first frame update
     void Start()
     {
+        leaderboardText.text = "100: " + loggedInPlayerSO.PublicKey + "\n99: " + loggedInPlayerSO.PublicKey
+            + "\n98: " + loggedInPlayerSO.PublicKey + "\n97: " + loggedInPlayerSO.PublicKey + "\n96: " + loggedInPlayerSO.PublicKey;
         /*
         Debug.Log("Restarted: " + restarted.Value);
         Debug.Log("PrivateKey: " + loggedInPlayerSO.PrivateKey);
@@ -60,6 +65,7 @@ public class GameController : MonoBehaviour
     public void RestartGame()
     {
         restarted.Value = true;
+        TrackScoreGUISO.score = 0;
 #if UNITY_EDITOR
         EditorSceneManager.LoadScene("Flappy");
 #else

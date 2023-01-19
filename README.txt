@@ -224,19 +224,23 @@ BLUE (0) IS FREE.
  + Added ability to fetch the account's ETH balance 
  + Added automatic refresh of ETH balance upon successful skin purchase
 
+- Finished(19.1.2023; 15:10)
+ + Added a "Main Menu" button in the skin selection scene
+ + Implemented the score counting system
+ + Added the leaderboard to the left side (currently hardcoded)
+  * Tried building it with the OnGUI functionality, and it looked nice, but when I accidentally scaled the 
+  game screen, I noticed that the GUI doesn't scale along with it
+  * Ended up scrapping that whole thing, and using the Canvas UI
+
 - Next I need to:
- + Add a "Main Menu" button in the skin selection scene
+ + Create a new Solidity contract to enable the players to push their own score and pull the leaderboard
+ + Limit the score upload to only 1 account whose private key will be exposed in the repository
+  * Prevents players from finding the contract manually and uploading fake scores
 
-- Plans from earlier:
- + Finally, edit the already existing ERC-1155 contract to:
-  * optionally implement trading of said asset bundles between addresses
-
-- Optionally:
- + Add a counter for collisions, AKA. score counter (started working on it, but it might be a waste of time atm)
- + Score uploader for the blockchain
- + Maybe make the contract more complex by adding Upgradeable(?) or something else.
- Not sure how that would work with Nethereum though;
- probably not so well...
- + Add a "skip login" option -> no need, the player can just generate a new account in a split second and continue
-
+- Plans which probably won't be fulfilled:
+ + Trading of skins between players 
+  * Reason: Not enough time to complete
+ + Adding usernames for each player (pubkey -> username and username -> pubkey mapping)
+  * Reason: How to make sure that both the AssetBundleVendor and the Leaderboard contract have the same user mappings?
+    It's probably doable, but I don't have enough time currently. I wouldn't want to mess something up for tomorrow
 

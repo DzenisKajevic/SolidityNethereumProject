@@ -28,6 +28,7 @@ public class PlayerSO : ScriptableObject
         skinIndex = 0;
         skinURL = null;
         balance = 0;
+        TrackScoreGUISO.score = 0;
     }
     public string PrivateKey
     {

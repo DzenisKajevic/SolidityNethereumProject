@@ -92,6 +92,7 @@ public class LoadSkin : MonoBehaviour
             Debug.Log(bundle.GetAllAssetNames());*/
             Instantiate(bundle.LoadAsset(assetName));
             bundle.Unload(false);
+            // "Loading" camera location: 161.8, 48.5, -47
             gameControllerScript.camera.transform.position = new Vector3(0, 0, -25);
             if (restarted.Value)
             {
