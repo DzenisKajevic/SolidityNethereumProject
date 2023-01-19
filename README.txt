@@ -224,7 +224,7 @@ BLUE (0) IS FREE.
  + Added ability to fetch the account's ETH balance 
  + Added automatic refresh of ETH balance upon successful skin purchase
 
-- Finished(19.1.2023; 15:10)
+- Finished (19.1.2023; 15:10)
  + Added a "Main Menu" button in the skin selection scene
  + Implemented the score counting system
  + Added the leaderboard to the left side (currently hardcoded)
@@ -232,10 +232,15 @@ BLUE (0) IS FREE.
   game screen, I noticed that the GUI doesn't scale along with it
   * Ended up scrapping that whole thing, and using the Canvas UI
 
+- Finished (19.1.2023; 17:59)
+ + Added 2 new custom contracts: AccessControl & Leaderboard: goerli.etherscan.io/address/0x279e3a7bb29fbc798cdca74b3e5e9ab3e51dd743
+  * AccessControl gives the Admin role to certain accounts so only they can upload info to the leaderboard
+ + Generated contract definitions for AccessControl & Leaderboard contracts
+
 - Next I need to:
- + Create a new Solidity contract to enable the players to push their own score and pull the leaderboard
- + Limit the score upload to only 1 account whose private key will be exposed in the repository
-  * Prevents players from finding the contract manually and uploading fake scores
+ + Call the Leaderboard contract inside the game to:
+  * upload score
+  * fetch current top 5 scores (LeaderboardFunction called 5 times)
 
 - Plans which probably won't be fulfilled:
  + Trading of skins between players 
