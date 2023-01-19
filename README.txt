@@ -252,6 +252,13 @@ BLUE (0) IS FREE.
  + Reorganized scripts
  + Made sure everything loads properly before unfreezing scenes
 
+- Finished (19.1.2023; 23:48)
+ + Added an event to the addScore() function in the Leaderboard contract that adds logs, hoping it would unstuck the
+ transactionReceiptPolling.PollForReceipt() function....... No, it did absolutely nothing.
+ + New Leaderboard contract address: https://goerli.etherscan.io/address/0x41a251a42c18310e1bb762e6b11d76321d21c9ff
+ + Still no response from the Nethereum Discord support channel...
+ + Nethereum is trash! Especially the Unity version. Never use this... EVER!
+
 - Big problems:
  + The skin purchase and leaderboard score upload have identical logic for sending transactions,
    however, skin purchases receive the transaction receipt when the transaction is confirmed on the chain,

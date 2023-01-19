@@ -53,16 +53,6 @@ contract AccessControl {
 
     modifier onlyRole(bytes32 _role) {
         require(roles[_role][msg.sender], "Unauthorized: Role not present");
-        if (!hasRole(_role, msg.sender)) {
-            revert(
-                string(
-                    abi.encodePacked(
-                        "AccessControl: missing role",
-                        bytes32ToStr(_role)
-                    )
-                )
-            );
-        }
         _;
     }
 
@@ -131,6 +121,9 @@ contract Leaderboard is AccessControl {
         }
     }
 
+    //Emitted when a player submits their score to the leaderboard.
+    event UploadScore(address indexed scoreHolder, uint256 score);
+
     // owner calls to update leaderboard
     function addScore(address scoreHolderAddress, uint256 score)
         public
@@ -143,6 +136,7 @@ contract Leaderboard is AccessControl {
                 score: score
             });
             leaderboardLength++;
+            emit UploadScore(scoreHolderAddress, score);
             return true;
         }
 
