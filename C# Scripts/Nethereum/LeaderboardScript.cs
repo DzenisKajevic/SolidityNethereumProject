@@ -74,12 +74,21 @@ public class LeaderboardScript : MonoBehaviour
         {
             Debug.Log("Transfer txn hash:" + transactionTransferHash);
 
-            var transactionReceiptPolling = new TransactionReceiptPollingRequest(loggedInPlayerSO._url);
+            var getLogsRequest = new EthGetLogsUnityRequest(loggedInPlayerSO._url);
+            var eventTransfer = UploadScoreEventDTO.GetEventABI();
+            yield return getLogsRequest.SendRequest(eventTransfer.CreateFilterInput(loggedInPlayerSO.leaderboardContractAddress, loggedInPlayerSO.PublicKey));
+
+            var eventDecoded = getLogsRequest.Result.DecodeAllEvents<UploadScoreEventDTO>();
+
+            Debug.Log("Submitted score: " + eventDecoded[0].Event.Score + "\nSubmitted by: " + eventDecoded[0].Event.ScoreHolder);
+
+            /*var transactionReceiptPolling = new TransactionReceiptPollingRequest(loggedInPlayerSO._url);
+            Debug.Log(transactionReceiptPolling.ToString());
             yield return transactionReceiptPolling.PollForReceipt(transactionTransferHash, 2);
             var transferReceipt = transactionReceiptPolling.Result;
 
             Debug.Log(transferReceipt.Logs);
-
+            */
             // if the score upload was successful, query the contract for updated information
             StartCoroutine(loadLeaderboard());
 
@@ -88,7 +97,7 @@ public class LeaderboardScript : MonoBehaviour
         else
         {
             Debug.Log("RW: Error submitted tx: " + transactionTransferRequest.Exception.Message);
-            gameControllerScript.enableInterface(true);
+            gameControllerScript.enableInterface(true, true);
         }
 
     }

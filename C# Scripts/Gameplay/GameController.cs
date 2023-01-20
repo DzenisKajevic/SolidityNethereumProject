@@ -85,10 +85,11 @@ public class GameController : MonoBehaviour
 #endif
 
     }
-    public void enableInterface(bool state)
+    public void enableInterface(bool state, bool submitScoreButtonState = false)
     {
-        submitScoreButton.interactable = state;
-        mainMenuButton.interactable = state;
+        // false so that it doesn't get reenabled for score submission after already submitting a score
+        submitScoreButton.interactable = submitScoreButtonState;
+        //mainMenuButton.interactable = state;
         restartButton.interactable = state;
         startButton.interactable = state;
     }

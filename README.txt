@@ -259,12 +259,19 @@ BLUE (0) IS FREE.
  + Still no response from the Nethereum Discord support channel...
  + Nethereum is trash! Especially the Unity version. Never use this... EVER!
 
-- Big problems:
- + The skin purchase and leaderboard score upload have identical logic for sending transactions,
-   however, skin purchases receive the transaction receipt when the transaction is confirmed on the chain,
-   while score upload continues polling infinitely, even after the transaction is confirmed...
-   I have no idea why this is happening, it should be working properly...
-   Asked on the official Discord support channel, but nobody is responding :) :) :) :)
+- Finished (20.1.2023; 11:38)
+ + Disabled submit button after already submitting a score to the leaderboard to prevent double submissions
+ + Added some Event-related functions to the LeaderboardDefinition.cs file
+ + Removed transaction polling request from the LeaderboardScript
+ + Replaced it with Event polling
+ 
+- Small issue:
+ + Event is fetched in a matter of seconds, the transaction is not fully completed at that time
+  * Could be fixed by manually polling the contract until the score changes (if we assume that the transaction didn't fail)
+ + Event returns score 0 instead of the actual submitted score, even though the Solidity code is written properly
+   (the score is passed to the event emitter)
+
+- Nobody on the Discord support channel said anything still... they are completely and utterly useless.
 
 - Plans which probably won't be fulfilled:
  + Trading of skins between players 

@@ -17,7 +17,7 @@ public class PlayerSO : ScriptableObject
     public List<System.Numerics.BigInteger> _leaderboardScoreList;
 
     // even though these values are initialised here, they will be null. They need to be manually added either through functions or the Editor
-    public string leaderboardContractAddress = "0x24b992db6964d1f1ab539f193b994e997e1c6584";
+    public string leaderboardContractAddress = "0x41a251A42c18310E1bb762e6B11d76321D21C9ff";
     public string leaderboardAdminPrivateKey = "d56fafc4fec3addbcf487a807d76be569942d16ef7e5bd3dc05196e8844e0626";
     public string leaderboardAdminPublicKey = "0xeCb30b600C2a60EC9721edf57DfF7949155F03ff";
     public string _url = "https://goerli.infura.io/v3/890a7f3aaf0d4b8eae37992a8e12a982";

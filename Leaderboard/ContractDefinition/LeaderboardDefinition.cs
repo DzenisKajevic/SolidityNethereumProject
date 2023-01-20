@@ -9,6 +9,7 @@ using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Contracts.CQS;
 using Nethereum.Contracts;
 using System.Threading;
+using Nethereum.ABI.Model;
 
 namespace NethereumProject.Contracts.Leaderboard.ContractDefinition
 {
@@ -147,7 +148,13 @@ namespace NethereumProject.Contracts.Leaderboard.ContractDefinition
         public virtual string Account { get; set; }
     }
 
-    public partial class UploadScoreEventDTO : UploadScoreEventDTOBase { }
+    public partial class UploadScoreEventDTO : UploadScoreEventDTOBase
+    {
+        public static EventABI GetEventABI()
+        {
+            return EventExtensions.GetEventABI<UploadScoreEventDTO>();
+        }
+    }
 
     [Event("UploadScore")]
     public class UploadScoreEventDTOBase : IEventDTO
